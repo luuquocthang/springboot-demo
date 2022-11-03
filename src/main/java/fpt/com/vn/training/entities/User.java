@@ -1,10 +1,10 @@
 package fpt.com.vn.training.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import fpt.com.vn.training.enums.ActiveEnum;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.*;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
 
 @Entity
@@ -12,12 +12,6 @@ import javax.persistence.*;
 @Setter
 @Getter
 public class User {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -26,18 +20,7 @@ public class User {
     @Column(name = "username", nullable = false, updatable = false)
     private String username;
 
-
-    @Column(name = "password", nullable = false, updatable = false)
-    private String password;
-
-    @Column(name = "role")
-    private String role;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userRefer")
+    @Column(name = "password", nullable = false)
     @JsonBackReference
-    private Employee employeeRefer;
-
-    @Column(name = "active", nullable = false)
-    @Enumerated(EnumType.ORDINAL)
-    private ActiveEnum active;
+    private String password;
 }
